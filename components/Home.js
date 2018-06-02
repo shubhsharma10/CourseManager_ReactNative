@@ -16,7 +16,7 @@ export default class Home extends Component {
                 justifyContent: 'center',
                 alignItems: 'center'}}>
                 <Text h2>Course Manager</Text>
-                <Button title="CourseList"
+                <Button title="Course List"
                         onPress={() => this.props.
                 navigation.navigate("CourseList")}/>
             </View>

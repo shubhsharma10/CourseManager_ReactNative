@@ -1,18 +1,14 @@
 import React, {Component} from 'react'
 import * as constants from '../constants/index'
-import {View,Alert} from 'react-native'
-import {ListItem,Icon} from 'react-native-elements'
+import * as constantElements from '../elements/index'
+import {View} from 'react-native'
+import {ListItem} from 'react-native-elements'
 
 export default class ModuleList extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Lessons',
-            headerRight: (<View style={{padding: 10}}>
-                <Icon
-                    name='home'
-                    color='white'
-                    onPress={() => navigation.navigate("Home")}/>
-            </View>),
+            headerRight:  <constantElements.GoToHome navigation={navigation}/>,
             headerTitleStyle: {textAlign: 'center', alignSelf: 'center', width: '80%', color: 'white'},
             headerStyle: {
                 backgroundColor: '#007BFF'

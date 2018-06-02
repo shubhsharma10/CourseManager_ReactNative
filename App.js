@@ -1,24 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar,Alert } from 'react-native';
-import FixedHeader from './elements/FixedHeader'
-import TextHeading from './elements/TextHeading'
-import Exam from './elements/Exam'
+import {createStackNavigator} from 'react-navigation'
+import CourseList from './components/CourseList'
+import ModuleList from './components/ModuleList'
+import LessonList from './components/LessonList'
+import TopicList from './components/TopicList'
+import Home from './components/Home'
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View >
-        <StatusBar barStyle="light-content"/>
-        <FixedHeader/>
-        <Exam/>
-      </View>
-    );
-  }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center'
-  },
+const App = createStackNavigator({
+    Home,
+    CourseList,
+    ModuleList,
+    LessonList,
+    TopicList
 });
+
+export default App;

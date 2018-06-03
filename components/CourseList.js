@@ -21,6 +21,9 @@ export default class CourseList extends Component {
             .then(courses =>
             {
                 this.setState({courses:courses});
+            })
+            .catch(function(error) {
+                console.log('There has been a problem with your fetch operation: ' + error.message);
             });
         this.state = {courses: []}
     }

@@ -17,6 +17,7 @@ export default class Home extends Component {
                 alignItems: 'center'}}>
                 <Text h2>Course Manager</Text>
                 <Button title="Course List"
+                        backgroundColor='#28A745'
                         onPress={() => this.props.
                 navigation.navigate("CourseList")}/>
             </View>

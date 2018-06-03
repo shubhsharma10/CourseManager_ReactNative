@@ -45,7 +45,13 @@ export default class ModuleList extends Component {
                     (<ListItem
                         title={topic.title}
                         key={index}
-                        onPress={() => Alert.alert('You have clicked on: '+topic.title)}/>))}
+                        onPress={() => this.props.
+                        navigation.navigate("WidgetList",
+                            {
+                                topicId: topic.id
+                            })}
+                        />
+                    ))}
             </View>
         )
     }

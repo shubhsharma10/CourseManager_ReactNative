@@ -24,7 +24,7 @@ export default class WidgetService {
                 method: 'POST'
             })
             .then(function (response) {
-                console.log(response.json())
+                return response;
             });
     }
 

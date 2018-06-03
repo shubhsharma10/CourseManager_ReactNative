@@ -28,6 +28,15 @@ export default class WidgetService {
             });
     }
 
+    findAssignmentWidgetById(widgetId) {
+        return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', widgetId))
+            .then(response => { return response.json();})
+            .catch(function (error) {
+                console.log('Error in find assignment widget: '+error);
+                return null;
+            });
+    }
+
     findAllWidgetsForTopic(topicId) {
         return fetch(constants.WIDGET_API_URL.replace('TID', topicId))
             .then(response => { return response.json();})

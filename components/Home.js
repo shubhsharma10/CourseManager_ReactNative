@@ -20,6 +20,14 @@ export default class Home extends Component {
                         backgroundColor='#28A745'
                         onPress={() => this.props.
                 navigation.navigate("CourseList")}/>
+                <View style={{flexDirection: 'row'}}>
+                    <Text>tt</Text>
+                    <Text>adf</Text>
+                    <Text>tt</Text>
+                    <Text>adf</Text>
+                    <Text>tt</Text>
+                    <Text>adf</Text>
+                </View>
             </View>
         );
     }

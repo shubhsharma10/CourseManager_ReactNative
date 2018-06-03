@@ -27,14 +27,26 @@ export default class WidgetList extends Component {
         };
 
         this.createWidget = this.createWidget.bind(this);
+        this.goToWidgetEditor = this.goToWidgetEditor.bind(this);
 
         this.widgetService = WidgetService.getInstance();
+    }
+
+    goToWidgetEditor(widgetId,widgetType) {
+        if(widgetType === 'Assignment')
+        {
+            this.props.navigation.navigate("AssignmentWidget",{ widgetId: widgetId});
+        }
+        else if(widgetType === 'Exam')
+        {
+            // not done yet
+        }
     }
 
     createWidget(selectedIndex) {
         if(selectedIndex === 1) {
             // Create Assignment widget
-            let assignment = {title: 'New Assignment'};
+            let assignment = {title: 'New Assignment',widgetType: 'Assignment'};
             this.widgetService
                 .createAssignmentWidget(this.state.topicId,assignment)
                 .then(() => {
@@ -78,7 +90,7 @@ export default class WidgetList extends Component {
                             title={widget.title}
                             key={index}
                             onPress={
-                                () => Alert.alert('You have clicked on asd: ')
+                                () => this.goToWidgetEditor(widget.id,widget.widgetType)
                             }
                         />
                     ))}

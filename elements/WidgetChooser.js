@@ -30,6 +30,7 @@ class WidgetChooser extends Component {
                     selectedButtonStyle={ {backgroundColor:'#007BFF'}}
                     containerStyle={{height: 75}}/>
                 <Button backgroundColor='#28A745'
+                        rounded
                         title="Add Widget"
                         onPress={() => this.props.createWidget(this.state.selectedWidgetTypeIndex)}/>
             </View>

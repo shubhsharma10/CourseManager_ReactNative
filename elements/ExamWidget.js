@@ -3,6 +3,7 @@ import {View,ScrollView,StyleSheet} from 'react-native'
 import {ListItem,Button, Text, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import * as constantElements from '../elements/index'
 import WidgetService from '../services/WidgetService'
+import QuestionTypePicker from './QuestionTypePicker'
 
 export default class ExamWidget extends Component {
     static navigationOptions = ({navigation}) => {
@@ -25,6 +26,7 @@ export default class ExamWidget extends Component {
         };
 
         this.deleteExamWidget = this.deleteExamWidget.bind(this);
+        this.createQuestion = this.createQuestion.bind(this);
         this.widgetService = WidgetService.getInstance();
     }
 
@@ -34,6 +36,10 @@ export default class ExamWidget extends Component {
         this.setState({ widgetId: widgetId });
         this.setState({ topicId: topicId });
         this.findExamWidget(widgetId);
+    }
+
+    createQuestion(selectedQuestionType) {
+        console.log('selected question type is: '+selectedQuestionType);
     }
 
     findExamWidget(widgetId) {
@@ -91,7 +97,8 @@ export default class ExamWidget extends Component {
                     />
                     {this.state.title === '' &&
                     <FormValidationMessage>Title is required</FormValidationMessage>}
-                    <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
+                    <QuestionTypePicker createQuestion={this.createQuestion}/>
+                    <View style={{flexDirection: 'row',justifyContent: 'space-between',marginTop: 5, marginBottom: 5}}>
                         <View>
                             <Button	backgroundColor="green"
                                        color="white"
@@ -103,11 +110,6 @@ export default class ExamWidget extends Component {
                                        title="Cancel"
                                        onPress={()=>this.cancelExam()}/></View>
                     </View>
-
-                    <Text h3 style={styles.viewStyleOne}>Preview</Text>
-                </View>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
-                            <Text h3 style={styles.textStyle}>{this.state.title}</Text>
                 </View>
                 <View>
                     <Button	backgroundColor="red"

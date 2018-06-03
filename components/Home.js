@@ -18,13 +18,14 @@ export default class Home extends Component {
                     alignItems: 'center'}}>
                     <Text h2>Course Manager</Text>
                     <Button title="Course List"
+                            rounded
                             backgroundColor='#28A745'
                             onPress={() => this.props.
                     navigation.navigate("CourseList")}/>
                 </View>
                 <View style={styles.container}>
-                    <View style={styles.viewStyleOne}><Text>XXXX</Text></View>
-                    <View style={styles.viewStyleOne}><Text>TTTT</Text></View>
+                    <View style={styles.viewStyleOne}><Text>ZZZZ</Text></View>
+                    <View style={styles.viewStyleOne}><Text>LLLL</Text></View>
                 </View>
             </ScrollView>
         );

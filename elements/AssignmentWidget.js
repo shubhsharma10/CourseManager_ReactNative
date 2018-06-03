@@ -110,7 +110,7 @@ class AssignmentWidget extends Component {
 
     render() {
         return(
-            <ScrollView>
+            <ScrollView style={{padding: 10}}>
                 <View>
                     <FormLabel>Title</FormLabel>
                     <FormInput value={this.state.title}
@@ -133,17 +133,18 @@ class AssignmentWidget extends Component {
                     }/>
                     {!this.state.isValidPoints &&
                         <FormValidationMessage>Points are required</FormValidationMessage>}
-
-                    <Button	backgroundColor="green"
-                               color="white"
-                               title="Save"
-                               buttonStyle={{marginBottom: 2, marginTop: 2}}
-                               onPress={()=>this.saveAssignment()}/>
-                    <Button	backgroundColor="red"
-                               color="white"
-                               title="Cancel"
-                               buttonStyle={{marginBottom: 2, marginTop: 2}}
-                               onPress={()=>this.cancelAssignment()}/>
+                    <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
+                        <View>
+                        <Button	backgroundColor="green"
+                                   color="white"
+                                   title="Save"
+                                   onPress={()=>this.saveAssignment()}/></View>
+                        <View>
+                        <Button	backgroundColor="red"
+                                   color="white"
+                                   title="Cancel"
+                                   onPress={()=>this.cancelAssignment()}/></View>
+                    </View>
 
                     <Text h3 style={styles.viewStyleOne}>Preview</Text>
                 </View>

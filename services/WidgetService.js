@@ -28,6 +28,19 @@ export default class WidgetService {
             });
     }
 
+    createExamWidget(topicId,exam) {
+        return fetch(constants.EXAM_API_URL
+                .replace('TID', topicId),
+            {
+                body: JSON.stringify(exam),
+                headers: {'Content-Type': 'application/json'},
+                method: 'POST'
+            })
+            .then(function (response) {
+                return response;
+            });
+    }
+
     updateAssignmentWidget(assignmentId,assignment) {
         return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId), {
                 method: 'put',
@@ -58,6 +71,39 @@ export default class WidgetService {
             .catch(function (error) {
                 console.log('Error in find assignment widget: '+error);
                 return null;
+            });
+    }
+
+    findExamWidgetById(widgetId) {
+        return fetch(constants.GEN_EXAM_API_URL.replace('EID', widgetId))
+            .then(response => { return response.json();})
+            .catch(function (error) {
+                console.log('Error in find exam widget: '+error);
+                return null;
+            });
+    }
+
+    updateExamWidget(examId,exam) {
+        return fetch(constants.GEN_EXAM_API_URL.replace('EID', examId), {
+            method: 'put',
+            body: JSON.stringify(exam),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(function(response){
+                return response;
+            })
+            .catch(function (error) {
+                console.log("Update exam widget promise error :: "+error);
+                return null;
+            });
+    }
+
+    deleteExamWidget(examId) {
+        return fetch(constants.GEN_EXAM_API_URL.replace('EID', examId),
+            {
+                method: 'DELETE'
             });
     }
 

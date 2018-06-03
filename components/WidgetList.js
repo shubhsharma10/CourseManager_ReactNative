@@ -39,16 +39,16 @@ export default class WidgetList extends Component {
         }
         else if(widgetType === 'Exam')
         {
-            // not done yet
+            this.props.navigation.navigate("ExamWidget",{ widgetId: widgetId, topicId: topicId});
         }
     }
 
     createWidget(selectedIndex) {
         if(selectedIndex === 1) {
             // Create Assignment widget
-            let assignment = {title: 'New Assignment',widgetType: 'Assignment'};
+            let assignmentWidget = {title: 'New Assignment',widgetType: 'Assignment'};
             this.widgetService
-                .createAssignmentWidget(this.state.topicId,assignment)
+                .createAssignmentWidget(this.state.topicId,assignmentWidget)
                 .then(() => {
                     this.findAllWidgetsForTopic(this.state.topicId);
                 })
@@ -56,6 +56,12 @@ export default class WidgetList extends Component {
         }
         else {
             // Create Exam widget
+            let examWidget = {title: 'New Exam',widgetType: 'Exam'};
+            this.widgetService
+                .createExamWidget(this.state.topicId,examWidget)
+                .then(() => {
+                    this.findAllWidgetsForTopic(this.state.topicId);
+                })
         }
     }
 

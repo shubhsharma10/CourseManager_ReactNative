@@ -18,3 +18,7 @@ export const ASSIGNMENT_API_URL =
     'http://10.0.0.185:8080/api/topic/TID/assignment';
 export const GEN_ASSIGNMENT_API_URL =
     'http://10.0.0.185:8080/api/assignment/AID';
+export const EXAM_API_URL =
+    'http://10.0.0.185:8080/api/topic/TID/exam';
+export const GEN_EXAM_API_URL =
+    'http://10.0.0.185:8080/api/exam/EID';

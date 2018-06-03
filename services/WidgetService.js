@@ -28,6 +28,23 @@ export default class WidgetService {
             });
     }
 
+    updateAssignmentWidget(assignmentId,assignment) {
+        return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId), {
+                method: 'put',
+                body: JSON.stringify(assignment),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
+            .then(function(response){
+                return response;
+            })
+            .catch(function (error) {
+                console.log("Update assignment widget promise error :: "+error);
+                return null;
+            });
+    }
+
     findAssignmentWidgetById(widgetId) {
         return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', widgetId))
             .then(response => { return response.json();})

@@ -23,16 +23,43 @@ class AssignmentWidget extends Component {
             points: 0,
             pointsInString: '',
             widgetId: 0,
+            topicId: 0,
             isValidPoints: false
         };
-
+        this.saveAssignment = this.saveAssignment.bind(this);
+        this.cancelAssignment = this.cancelAssignment.bind(this);
         this.widgetService = WidgetService.getInstance();
     }
 
     componentDidMount() {
         const widgetId = this.props.navigation.getParam("widgetId", 1);
+        const topicId = this.props.navigation.getParam("topicId", 1);
         this.setState({ widgetId: widgetId });
+        this.setState({ topicId: topicId });
         this.findAssignmentWidget(widgetId);
+    }
+
+    goToWidgetList() {
+        this.props.navigation.navigate("WidgetList",
+            {
+                topicId: this.state.topicId
+            });
+    };
+
+    saveAssignment() {
+        this.widgetService
+            .findAssignmentWidgetById(this.state.widgetId)
+            .then((response) => {
+                response.title = this.state.title;
+                response.description = this.state.description;
+                response.points = this.state.points;
+                this.widgetService.updateAssignmentWidget(this.state.widgetId,response);
+            })
+            .then(()=> this.goToWidgetList());
+    }
+
+    cancelAssignment() {
+        this.goToWidgetList();
     }
 
     findAssignmentWidget(widgetId) {
@@ -47,6 +74,8 @@ class AssignmentWidget extends Component {
                     let points = assignmentWidget.points === null ? 0 : assignmentWidget.points;
                     this.setState({points: points});
                     this.setState({pointsInString: points.toString()});
+                    if(points > 0)
+                        this.setState({isValidPoints: true});
                 }
             });
 
@@ -98,10 +127,14 @@ class AssignmentWidget extends Component {
 
                     <Button	backgroundColor="green"
                                color="white"
-                               title="Save"/>
+                               title="Save"
+                               buttonStyle={{marginBottom: 2, marginTop: 2}}
+                               onPress={()=>this.saveAssignment()}/>
                     <Button	backgroundColor="red"
                                color="white"
-                               title="Cancel"/>
+                               title="Cancel"
+                               buttonStyle={{marginBottom: 2, marginTop: 2}}
+                               onPress={()=>this.cancelAssignment()}/>
 
                     <Text h3 style={styles.viewStyleOne}>Preview</Text>
                 </View>
@@ -133,7 +166,7 @@ class AssignmentWidget extends Component {
                         />
                     </View>
                     <View style={styles.buttonContainer} >
-                       <Button style={styles.buttonStyle} backgroundColor="red" color="white" title="Cancel"/>
+                       <Button backgroundColor="red" color="white" title="Cancel"/>
                         <Button backgroundColor="green" color="white" title="Submit"/>
                     </View>
                 </View>
@@ -186,11 +219,6 @@ let styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
-    },
-    buttonStyle: {
-        alignItems: 'center',
-        margin: 5,
-        justifyContent: 'flex-start'
     },
     textArea: {
         height: 150,

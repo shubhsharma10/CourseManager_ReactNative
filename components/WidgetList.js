@@ -32,10 +32,10 @@ export default class WidgetList extends Component {
         this.widgetService = WidgetService.getInstance();
     }
 
-    goToWidgetEditor(widgetId,widgetType) {
+    goToWidgetEditor(widgetId,widgetType,topicId) {
         if(widgetType === 'Assignment')
         {
-            this.props.navigation.navigate("AssignmentWidget",{ widgetId: widgetId});
+            this.props.navigation.navigate("AssignmentWidget",{ widgetId: widgetId, topicId: topicId});
         }
         else if(widgetType === 'Exam')
         {
@@ -81,6 +81,14 @@ export default class WidgetList extends Component {
         this.findAllWidgetsForTopic(topicId);
     }
 
+    componentWillReceiveProps(newProps) {
+        const topicId = this.props.navigation.getParam("topicId", 1);
+        this.setState({
+            topicId: topicId
+        });
+        this.findAllWidgetsForTopic(topicId);
+    }
+
     render() {
         return(
             <ScrollView>
@@ -90,7 +98,7 @@ export default class WidgetList extends Component {
                             title={widget.title}
                             key={index}
                             onPress={
-                                () => this.goToWidgetEditor(widget.id,widget.widgetType)
+                                () => this.goToWidgetEditor(widget.id,widget.widgetType,this.state.topicId)
                             }
                         />
                     ))}

@@ -28,6 +28,7 @@ class AssignmentWidget extends Component {
         };
         this.saveAssignment = this.saveAssignment.bind(this);
         this.cancelAssignment = this.cancelAssignment.bind(this);
+        this.deleteAssignmentWidget = this.deleteAssignmentWidget.bind(this);
         this.widgetService = WidgetService.getInstance();
     }
 
@@ -60,6 +61,14 @@ class AssignmentWidget extends Component {
 
     cancelAssignment() {
         this.goToWidgetList();
+    }
+
+    deleteAssignmentWidget() {
+        this.widgetService
+            .deleteAssignmentWidget(this.state.widgetId)
+            .then(() => {
+                this.goToWidgetList();
+            });
     }
 
     findAssignmentWidget(widgetId) {
@@ -169,6 +178,13 @@ class AssignmentWidget extends Component {
                        <Button backgroundColor="red" color="white" title="Cancel"/>
                         <Button backgroundColor="green" color="white" title="Submit"/>
                     </View>
+                </View>
+                <View>
+                    <Button	backgroundColor="red"
+                               color="white"
+                               title="Delete"
+                               buttonStyle={{marginBottom: 2, marginTop: 2}}
+                               onPress={()=>this.deleteAssignmentWidget()}/>
                 </View>
             </ScrollView>
         )

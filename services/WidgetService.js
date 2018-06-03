@@ -45,6 +45,13 @@ export default class WidgetService {
             });
     }
 
+    deleteAssignmentWidget(assignmentId) {
+        return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId),
+            {
+                method: 'DELETE'
+            });
+    }
+
     findAssignmentWidgetById(widgetId) {
         return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', widgetId))
             .then(response => { return response.json();})

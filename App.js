@@ -10,6 +10,7 @@ import ExamWidget from './elements/ExamWidget'
 import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
 import EssayQuestionEditor from './elements/EssayQuestionEditor'
 import MultipleChoiceQuestionEditor from './elements/MultipleChoiceQuestionEditor'
+import FillInTheBlanksQuestionEditor from './elements/FillInTheBlanksQuestionEditor'
 import Home from './components/Home'
 
 
@@ -24,7 +25,8 @@ const App = createStackNavigator({
     ExamWidget,
     TrueFalseQuestionEditor,
     EssayQuestionEditor,
-    MultipleChoiceQuestionEditor
+    MultipleChoiceQuestionEditor,
+    FillInTheBlanksQuestionEditor
 });
 
 export default App;

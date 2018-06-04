@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import * as constants from '../constants/index'
 import * as constantElements from '../elements/index'
-import {ScrollView,Alert,View} from 'react-native'
-import {ListItem} from 'react-native-elements'
+import {ScrollView,View} from 'react-native'
+import {ListItem,Icon} from 'react-native-elements'
 import WidgetChooser from '../elements/WidgetChooser'
 import WidgetService from '../services/WidgetService'
 
@@ -11,6 +11,12 @@ export default class WidgetList extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Widgets',
+            headerLeft:(<View style={{padding: 10}}>
+                <Icon name="chevron-left"
+                      onPress={() => navigation.goBack()}
+                      size={30}
+                      color="white"/>
+            </View>),
             headerRight: <constantElements.GoToHome navigation={navigation}/>,
             headerTitleStyle: {textAlign: 'center', alignSelf: 'center', width: '80%', color: 'white'},
             headerStyle: {
@@ -80,6 +86,7 @@ export default class WidgetList extends Component {
 
 
     componentDidMount() {
+        console.log('came here in widget list in DidMount');
         const topicId = this.props.navigation.getParam("topicId", 1);
         this.setState({
             topicId: topicId
@@ -88,6 +95,7 @@ export default class WidgetList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+        console.log('came here in widget list in Props');
         const topicId = this.props.navigation.getParam("topicId", 1);
         this.setState({
             topicId: topicId

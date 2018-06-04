@@ -8,6 +8,7 @@ export const GoToHome = ({navigation}) => {
             <Icon
                 name='home'
                 color='white'
+                size={30}
                 onPress={() => navigation.navigate("Home")}/>
         </View>);
 };

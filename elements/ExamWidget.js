@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet,TextInput} from 'react-native'
-import {ListItem,Button, Text, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
+import {ListItem,Button,Icon} from 'react-native-elements'
 import * as constantElements from '../elements/index'
 import WidgetService from '../services/WidgetService'
 import QuestionTypePicker from './QuestionTypePicker'
@@ -9,6 +9,12 @@ export default class ExamWidget extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Exam',
+            headerLeft:(<View style={{padding: 10}}>
+                <Icon name="chevron-left"
+                      onPress={() => navigation.goBack()}
+                      size={30}
+                      color="white"/>
+            </View>),
             headerRight: <constantElements.GoToHome navigation={navigation}/>,
             headerTitleStyle: {textAlign: 'center', alignSelf: 'center', width: '80%', color: 'white'},
             headerStyle: {

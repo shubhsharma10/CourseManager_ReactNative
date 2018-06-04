@@ -2,12 +2,18 @@ import React, {Component} from 'react'
 import * as constants from '../constants/index'
 import * as constantElements from '../elements/index'
 import {View} from 'react-native'
-import {ListItem} from 'react-native-elements'
+import {ListItem,Icon} from 'react-native-elements'
 
 export default class ModuleList extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Lessons',
+            headerLeft:(<View style={{padding: 10}}>
+                <Icon name="chevron-left"
+                      onPress={() => navigation.goBack()}
+                      size={30}
+                      color="white"/>
+            </View>),
             headerRight:  <constantElements.GoToHome navigation={navigation}/>,
             headerTitleStyle: {textAlign: 'center', alignSelf: 'center', width: '80%', color: 'white'},
             headerStyle: {

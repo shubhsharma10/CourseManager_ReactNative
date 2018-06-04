@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {ScrollView,View,StyleSheet,TextInput} from 'react-native'
-import {Text, Button, CheckBox} from 'react-native-elements'
+import {Text, Button, CheckBox,Icon} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import WidgetService from '../services/WidgetService'
 import * as constantElements from '../elements/index'
@@ -9,6 +9,14 @@ class AssignmentWidget extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'Assignment',
+            headerLeft:(<View style={{padding: 10}}>
+                        <Icon name="chevron-left"
+                              onPress={() => navigation.navigate("WidgetList", {
+                                  topicId: navigation.state.params.topicId
+                              })}
+                              size={30}
+                              color="white"/>
+            </View>),
             headerRight: <constantElements.GoToHome navigation={navigation}/>,
             headerTitleStyle: {textAlign: 'center', alignSelf: 'center', width: '80%', color: 'white'},
             headerStyle: {

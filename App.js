@@ -8,6 +8,7 @@ import WidgetList from './components/WidgetList'
 import AssignmentWidget from './elements/AssignmentWidget'
 import ExamWidget from './elements/ExamWidget'
 import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
+import EssayQuestionEditor from './elements/EssayQuestionEditor'
 import Home from './components/Home'
 
 
@@ -20,7 +21,8 @@ const App = createStackNavigator({
     WidgetList,
     AssignmentWidget,
     ExamWidget,
-    TrueFalseQuestionEditor
+    TrueFalseQuestionEditor,
+    EssayQuestionEditor
 });
 
 export default App;

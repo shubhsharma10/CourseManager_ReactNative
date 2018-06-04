@@ -41,6 +41,10 @@ export default class WidgetService {
             });
     }
 
+    /////////////////////////////
+    /// True False Question methods
+    //////////////////////////////
+
     createTrueFalseQuestion(examId,question) {
         return fetch(constants.TRUEFALSE_API_URL
                 .replace('EID', examId),
@@ -51,23 +55,6 @@ export default class WidgetService {
             })
             .then(function (response) {
                 return response;
-            });
-    }
-
-    updateAssignmentWidget(assignmentId,assignment) {
-        return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId), {
-                method: 'put',
-                body: JSON.stringify(assignment),
-                headers: {
-                    'content-type': 'application/json'
-                }
-            })
-            .then(function(response){
-                return response;
-            })
-            .catch(function (error) {
-                console.log("Update assignment widget promise error :: "+error);
-                return null;
             });
     }
 
@@ -88,6 +75,93 @@ export default class WidgetService {
             });
     }
 
+    deleteTrueFalseQuestion(questionId) {
+        return fetch(constants.GEN_TRUEFALSE_API_URL.replace('QID', questionId),
+            {
+                method: 'DELETE'
+            });
+    }
+
+    findTrueFalseQuestionById(questionId){
+        return fetch(constants.GEN_TRUEFALSE_API_URL.replace('QID', questionId))
+            .then(response => { return response.json();})
+            .catch(function (error) {
+                console.log('Error in find true false question: '+error);
+                return null;
+            });
+    }
+
+
+    ///////////////////////////////
+    /// Essay question methods
+    //////////////////////////////
+
+    createEssayQuestion(examId,question) {
+        return fetch(constants.ESSAY_API_URL
+                .replace('EID', examId),
+            {
+                body: JSON.stringify(question),
+                headers: {'Content-Type': 'application/json'},
+                method: 'POST'
+            })
+            .then(function (response) {
+                return response;
+            });
+    }
+
+    updateEssayQuestion(questionId,question) {
+        return fetch(constants.GEN_ESSAY_API_URL.replace('QID', questionId), {
+            method: 'put',
+            body: JSON.stringify(question),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(function(response){
+                return response;
+            })
+            .catch(function (error) {
+                console.log("Update essay question promise error :: "+error);
+                return null;
+            });
+    }
+
+    deleteEssayQuestion(questionId) {
+        return fetch(constants.GEN_ESSAY_API_URL.replace('QID', questionId),
+            {
+                method: 'DELETE'
+            });
+    }
+
+    findEssayQuestionById(questionId){
+        return fetch(constants.GEN_ESSAY_API_URL.replace('QID', questionId))
+            .then(response => { return response.json();})
+            .catch(function (error) {
+                console.log('Error in find essay question: '+error);
+                return null;
+            });
+    }
+
+
+    ////////////////////////////////////////
+
+    updateAssignmentWidget(assignmentId,assignment) {
+        return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId), {
+                method: 'put',
+                body: JSON.stringify(assignment),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
+            .then(function(response){
+                return response;
+            })
+            .catch(function (error) {
+                console.log("Update assignment widget promise error :: "+error);
+                return null;
+            });
+    }
+
     deleteAssignmentWidget(assignmentId) {
         return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId),
             {
@@ -95,12 +169,7 @@ export default class WidgetService {
             });
     }
 
-    deleteTrueFalseQuestion(questionId) {
-        return fetch(constants.GEN_TRUEFALSE_API_URL.replace('QID', questionId),
-            {
-                method: 'DELETE'
-            });
-    }
+
 
     findAssignmentWidgetById(widgetId) {
         return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', widgetId))
@@ -116,15 +185,6 @@ export default class WidgetService {
             .then(response => { return response.json();})
             .catch(function (error) {
                 console.log('Error in find exam widget: '+error);
-                return null;
-            });
-    }
-
-    findTrueFalseQuestionById(questionId){
-        return fetch(constants.GEN_TRUEFALSE_API_URL.replace('QID', questionId))
-            .then(response => { return response.json();})
-            .catch(function (error) {
-                console.log('Error in find true false question: '+error);
                 return null;
             });
     }

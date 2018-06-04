@@ -70,6 +70,13 @@ export default class ExamWidget extends Component {
         else if(selectedQuestionType === "ES")
         {
             // Essay type question
+            let essayQuestion = {type:"ES",title:"New Question"};
+            // True false question
+            this.widgetService
+                .createEssayQuestion(this.state.widgetId,essayQuestion)
+                .then(() => {
+                    this.findAllQuestionsForExam(this.state.widgetId);
+                })
         }
         else if(selectedQuestionType === "MC")
         {
@@ -151,7 +158,12 @@ export default class ExamWidget extends Component {
         }
         else if(questionType === "ES")
         {
-
+            this.props.navigation.navigate("EssayQuestionEditor",
+                {
+                    questionId: questionId,
+                    widgetId: examId,
+                    topicId: topicId
+                });
         }
     }
 

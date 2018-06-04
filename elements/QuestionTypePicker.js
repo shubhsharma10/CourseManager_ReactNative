@@ -6,7 +6,7 @@ class QuestionTypePicker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            questionType: 0
+            questionType: "ES"
         }
     }
     render() {

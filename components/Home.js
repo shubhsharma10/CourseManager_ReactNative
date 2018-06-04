@@ -24,8 +24,8 @@ export default class Home extends Component {
                     navigation.navigate("CourseList")}/>
                 </View>
                 <View style={styles.container}>
-                    <View style={styles.viewStyleOne}><Text>ZZZZ</Text></View>
-                    <View style={styles.viewStyleOne}><Text>LLLL</Text></View>
+                    <View style={styles.viewStyleOne}><Text>PPPP</Text></View>
+                    <View style={styles.viewStyleOne}><Text>XXXX</Text></View>
                 </View>
             </ScrollView>
         );

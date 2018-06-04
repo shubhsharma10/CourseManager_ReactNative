@@ -41,6 +41,19 @@ export default class WidgetService {
             });
     }
 
+    createTrueFalseQuestion(examId,question) {
+        return fetch(constants.TRUEFALSE_API_URL
+                .replace('EID', examId),
+            {
+                body: JSON.stringify(question),
+                headers: {'Content-Type': 'application/json'},
+                method: 'POST'
+            })
+            .then(function (response) {
+                return response;
+            });
+    }
+
     updateAssignmentWidget(assignmentId,assignment) {
         return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId), {
                 method: 'put',
@@ -83,6 +96,15 @@ export default class WidgetService {
             });
     }
 
+    findTrueFalseQuestionById(questionId){
+        return fetch(constants.GEN_TRUEFALSE_API_URL.replace('QID', questionId))
+            .then(response => { return response.json();})
+            .catch(function (error) {
+                console.log('Error in find true false question: '+error);
+                return null;
+            });
+    }
+
     updateExamWidget(examId,exam) {
         return fetch(constants.GEN_EXAM_API_URL.replace('EID', examId), {
             method: 'put',
@@ -109,6 +131,15 @@ export default class WidgetService {
 
     findAllWidgetsForTopic(topicId) {
         return fetch(constants.WIDGET_API_URL.replace('TID', topicId))
+            .then(response => { return response.json();})
+            .catch(function (error) {
+                console.log('Error in find widgets for topic: '+error);
+                return null;
+            });
+    }
+
+    findAllQuestionsForExam(examId) {
+        return fetch(constants.QUESTION_API_URL.replace('EID', examId))
             .then(response => { return response.json();})
             .catch(function (error) {
                 console.log('Error in find widgets for topic: '+error);

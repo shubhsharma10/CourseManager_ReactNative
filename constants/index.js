@@ -22,3 +22,9 @@ export const EXAM_API_URL =
     'http://10.0.0.185:8080/api/topic/TID/exam';
 export const GEN_EXAM_API_URL =
     'http://10.0.0.185:8080/api/exam/EID';
+export const TRUEFALSE_API_URL =
+    'http://10.0.0.185:8080/api/exam/EID/truefalse';
+export const QUESTION_API_URL =
+    'http://10.0.0.185:8080/api/exam/EID/question';
+export const GEN_TRUEFALSE_API_URL =
+    'http://10.0.0.185:8080/api/truefalse/QID';

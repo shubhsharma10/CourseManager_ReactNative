@@ -32,3 +32,7 @@ export const ESSAY_API_URL =
     'http://10.0.0.185:8080/api/exam/EID/essay';
 export const GEN_ESSAY_API_URL =
     'http://10.0.0.185:8080/api/essay/QID';
+export const MULTIPLE_CHOICE_API_URL =
+    'http://10.0.0.185:8080/api/exam/EID/choice';
+export const GEN_MULTIPLE_CHOICE_API_URL =
+    'http://10.0.0.185:8080/api/choice/QID';

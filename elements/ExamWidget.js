@@ -81,6 +81,13 @@ export default class ExamWidget extends Component {
         else if(selectedQuestionType === "MC")
         {
             // Multiple choice question
+            let multipleChoiceQuestion = {type:"MC",title:"New Question"};
+            // True false question
+            this.widgetService
+                .createMultipleChoiceQuestion(this.state.widgetId,multipleChoiceQuestion)
+                .then(() => {
+                    this.findAllQuestionsForExam(this.state.widgetId);
+                })
         }
         else if(selectedQuestionType === "FB")
         {
@@ -150,7 +157,12 @@ export default class ExamWidget extends Component {
         }
         else if(questionType === "MC")
         {
-
+            this.props.navigation.navigate("MultipleChoiceQuestionEditor",
+                {
+                    questionId: questionId,
+                    widgetId: examId,
+                    topicId: topicId
+                });
         }
         else if(questionType === "FB")
         {

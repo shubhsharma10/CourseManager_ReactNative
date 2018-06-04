@@ -71,8 +71,32 @@ export default class WidgetService {
             });
     }
 
+    updateTrueFalseQuestion(questionId,question) {
+        return fetch(constants.GEN_TRUEFALSE_API_URL.replace('QID', questionId), {
+            method: 'put',
+            body: JSON.stringify(question),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(function(response){
+                return response;
+            })
+            .catch(function (error) {
+                console.log("Update true false question promise error :: "+error);
+                return null;
+            });
+    }
+
     deleteAssignmentWidget(assignmentId) {
         return fetch(constants.GEN_ASSIGNMENT_API_URL.replace('AID', assignmentId),
+            {
+                method: 'DELETE'
+            });
+    }
+
+    deleteTrueFalseQuestion(questionId) {
+        return fetch(constants.GEN_TRUEFALSE_API_URL.replace('QID', questionId),
             {
                 method: 'DELETE'
             });

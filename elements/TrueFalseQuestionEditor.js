@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet,TextInput} from 'react-native'
-import {Text, Button, CheckBox,FormLabel, FormInput, FormValidationMessage}
+import {Text, Button, CheckBox,FormLabel, FormInput, FormValidationMessage,Icon}
                                             from 'react-native-elements'
 import WidgetService from '../services/WidgetService'
 import * as constantElements from '../elements/index'
@@ -9,6 +9,12 @@ export default class TrueFalseQuestionEditor extends Component {
     static navigationOptions = ({navigation}) => {
         return {
             title: 'True False Question',
+            headerLeft:(<View style={{padding: 10}}>
+                <Icon name="chevron-left"
+                      onPress={() => navigation.goBack()}
+                      size={30}
+                      color="white"/>
+            </View>),
             headerRight: <constantElements.GoToHome navigation={navigation}/>,
             headerTitleStyle: {textAlign: 'center', alignSelf: 'center', width: '80%', color: 'white'},
             headerStyle: {
@@ -20,13 +26,14 @@ export default class TrueFalseQuestionEditor extends Component {
         super(props);
         this.state = {
             title: '',
-            description: '',
+            subtitle: '',
             points: 0,
             pointInStr: '',
             isTrue: true,
             isValidPoints: false,
             questionId: 0,
-            widgetId: 0
+            widgetId: 0,
+            topicId: 0,
         };
 
         this.deleteQuestion = this.deleteQuestion.bind(this);
@@ -39,6 +46,8 @@ export default class TrueFalseQuestionEditor extends Component {
     componentDidMount() {
         const widgetId = this.props.navigation.getParam("widgetId", 1);
         const questionId = this.props.navigation.getParam("questionId", 1);
+        const topicId = this.props.navigation.getParam("topicId", 1);
+        this.setState({ topicId: topicId });
         this.setState({ widgetId: widgetId });
         this.setState({ questionId: questionId });
         this.findTrueFalseQuestionById(questionId);
@@ -51,8 +60,8 @@ export default class TrueFalseQuestionEditor extends Component {
                 if(question !== null)
                 {
                     this.setState({title: question.title === null ? '' : question.title});
-                    this.setState({description: question.description === null ? '' : question.description});
-                    this.setState({isTrue: question.isTrue === null ? true : question.isTrue});
+                    this.setState({subtitle: question.subtitle === null ? '' : question.subtitle});
+                    this.setState({isTrue: question.true });
                     let points = question.points === null ? 0 : question.points;
                     this.setState({points: points});
                     this.setState({pointsInString: points.toString()});
@@ -64,6 +73,13 @@ export default class TrueFalseQuestionEditor extends Component {
 
     updateForm(newState) {
         this.setState(newState)
+    }
+
+    revertIsTrueState()
+    {
+        let oldState = this.state.isTrue;
+        let newState = !oldState;
+        this.setState({isTrue: newState});
     }
 
     updatePoints(newValue) {
@@ -80,18 +96,36 @@ export default class TrueFalseQuestionEditor extends Component {
         }
     }
 
-    saveQuestion() {
+    goToExamWidget() {
+        this.props.navigation.navigate("ExamWidget",
+            {
+                widgetId: this.state.widgetId,
+                topicId: this.state.topicId
+            });
+    };
 
+    saveQuestion() {
+        this.widgetService
+            .findTrueFalseQuestionById(this.state.questionId)
+            .then((response) => {
+                response.title = this.state.title;
+                response.subtitle = this.state.subtitle;
+                response.points = this.state.points;
+                response.true = this.state.isTrue;
+                this.widgetService.updateTrueFalseQuestion(this.state.questionId,response);
+            })
+            .then(()=> this.goToExamWidget());
     }
 
     cancelChanges() {
-
+        this.goToExamWidget();
     }
+
     deleteQuestion() {
         this.widgetService
-            .deleteTrueFalseQuestion(this.state.widgetId)
+            .deleteTrueFalseQuestion(this.state.questionId)
             .then(() => {
-                this.goToWidgetList();
+                this.goToExamWidget();
             });
     }
 
@@ -103,22 +137,22 @@ export default class TrueFalseQuestionEditor extends Component {
                     <FormInput value={this.state.title}
                                onChangeText={ text => this.updateForm({title: text})}/>
                     {this.state.title === '' &&
-                    <FormValidationMessage>Title is required</FormValidationMessage>}
+                        <FormValidationMessage>Title is required</FormValidationMessage>}
 
                     <FormLabel>Description</FormLabel>
-                    <FormInput value={this.state.description} onChangeText={
-                        text => this.updateForm({description: text})}/>
-                    {this.state.description === '' &&
-                    <FormValidationMessage>Description is required</FormValidationMessage>}
+                    <FormInput value={this.state.subtitle} onChangeText={
+                        text => this.updateForm({subtitle: text})}/>
+                    {this.state.subtitle === '' &&
+                        <FormValidationMessage>Description is required</FormValidationMessage>}
 
                     <FormLabel>Points</FormLabel>
                     <FormInput value={this.state.pointsInString}
                                onChangeText={
                                    text => this.updatePoints(text)}/>
                     {!this.state.isValidPoints &&
-                    <FormValidationMessage>Points are required</FormValidationMessage>}
+                        <FormValidationMessage>Points are required</FormValidationMessage>}
 
-                    <CheckBox onPress={() => this.updateForm({isTrue: !this.state.isTrue})}
+                    <CheckBox onPress={() => this.revertIsTrueState()}
                               checked={this.state.isTrue} title='The answer is true'/>
 
                     <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
@@ -146,7 +180,7 @@ export default class TrueFalseQuestionEditor extends Component {
                     </View>
                     <View style={styles.containerB}>
                         <View style={styles.viewStyleOne}>
-                            <Text style={styles.textStyle}>{this.state.description}</Text>
+                            <Text style={styles.textStyle}>{this.state.subtitle}</Text>
                         </View>
                     </View>
                     <View style={styles.containerC}>

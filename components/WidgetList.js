@@ -86,7 +86,6 @@ export default class WidgetList extends Component {
 
 
     componentDidMount() {
-        console.log('came here in widget list in DidMount');
         const topicId = this.props.navigation.getParam("topicId", 1);
         this.setState({
             topicId: topicId
@@ -95,7 +94,6 @@ export default class WidgetList extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.log('came here in widget list in Props');
         const topicId = this.props.navigation.getParam("topicId", 1);
         this.setState({
             topicId: topicId

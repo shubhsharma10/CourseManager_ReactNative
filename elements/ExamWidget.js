@@ -46,12 +46,20 @@ export default class ExamWidget extends Component {
         this.findAllQuestionsForExam(widgetId);
     }
 
+    componentWillReceiveProps(newProps) {
+        const widgetId = this.props.navigation.getParam("widgetId", 1);
+        const topicId = this.props.navigation.getParam("topicId", 1);
+        this.setState({ widgetId: widgetId });
+        this.setState({ topicId: topicId });
+        this.findExamWidget(widgetId);
+        this.findAllQuestionsForExam(widgetId);
+    }
+
+
     createQuestion(selectedQuestionType) {
         if(selectedQuestionType === "TF")
         {
             let trueFalseQuestion = {type:"TF",title:"New Question"};
-            console.log('widget id: '+this.state.widgetId);
-            console.log('type is: '+typeof this.state.widgetId);
             // True false question
             this.widgetService
                 .createTrueFalseQuestion(this.state.widgetId,trueFalseQuestion)
@@ -122,12 +130,16 @@ export default class ExamWidget extends Component {
         this.goToWidgetList();
     }
 
-    goToQuestionEditor(questionId,questionType,examId)
+    goToQuestionEditor(questionId,questionType,examId,topicId)
     {
         if(questionType === "TF")
         {
-            console.log('came here');
-            this.props.navigation.navigate("TrueFalseQuestionEditor",{ questionId: questionId, widgetId: examId});
+            this.props.navigation.navigate("TrueFalseQuestionEditor",
+                {
+                    questionId: questionId,
+                    widgetId: examId,
+                    topicId: topicId
+                });
         }
         else if(questionType === "MC")
         {
@@ -163,7 +175,13 @@ export default class ExamWidget extends Component {
                        return <ListItem
                            title={question.title}
                            key={index}
-                           onPress={()=>this.goToQuestionEditor(question.id,question.type,this.state.widgetId)}/>
+                           onPress={()=>
+                               this.goToQuestionEditor(
+                                    question.id,question.type,
+                                    this.state.widgetId,
+                                    this.state.topicId)
+                           }
+                       />
                     })}
                     <QuestionTypePicker createQuestion={this.createQuestion}/>
                 </View>

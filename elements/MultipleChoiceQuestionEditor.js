@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet} from 'react-native'
-import {Text, Button, CheckBox,FormLabel, FormInput, FormValidationMessage,Icon}
+import {Text, Button, ListItem,FormLabel, FormInput, FormValidationMessage,Icon}
     from 'react-native-elements'
 import WidgetService from '../services/WidgetService'
 import * as constantElements from '../elements/index'
+import Dialog from 'react-native-dialog'
+import CheckBox from 'react-native-checkbox';
 
 export default class MultipleChoiceQuestionEditor extends Component {
     static navigationOptions = ({navigation}) => {
@@ -29,17 +31,24 @@ export default class MultipleChoiceQuestionEditor extends Component {
             subtitle: '',
             points: 0,
             pointInStr: '',
-            options: '',
-            correctOption: 0,
+            choices: [],
+            correctChoice: '',
             isValidPoints: false,
             questionId: 0,
             widgetId: 0,
             topicId: 0,
+            isDialogVisible: false,
+            choiceText: ''
         };
 
         this.deleteQuestion = this.deleteQuestion.bind(this);
         this.saveQuestion = this.saveQuestion.bind(this);
         this.cancelChanges = this.cancelChanges.bind(this);
+        this.showAddChoiceDialog = this.showAddChoiceDialog.bind(this);
+        this.deleteChoice = this.deleteChoice.bind(this);
+        this.handleCancelDialog = this.handleCancelDialog.bind(this);
+        this.handleAddDialog = this.handleAddDialog.bind(this);
+        this.setCorrectChoice = this.setCorrectChoice.bind(this);
 
         this.widgetService = WidgetService.getInstance();
     }
@@ -67,6 +76,8 @@ export default class MultipleChoiceQuestionEditor extends Component {
                     this.setState({pointsInString: points.toString()});
                     if(points > 0)
                         this.setState({isValidPoints: true});
+                    this.setState({choices: question.options});
+                    this.setState({correctChoice: question.correctOption});
                 }
             });
     }
@@ -89,6 +100,37 @@ export default class MultipleChoiceQuestionEditor extends Component {
         }
     }
 
+    showAddChoiceDialog() {
+        this.setState({isDialogVisible: true});
+    }
+
+    setCorrectChoice(correctChoice)
+    {
+        this.setState({correctChoice:correctChoice});
+    }
+
+    deleteChoice(choiceToDelete) {
+        let existingChoices = this.state.choices;
+        let indexToDelete = existingChoices.indexOf(choiceToDelete);
+        existingChoices.splice(indexToDelete,1);
+        this.setState({choices: existingChoices});
+    }
+
+    handleCancelDialog()
+    {
+        this.setState({choiceText: ''});
+        this.setState({isDialogVisible: false});
+    }
+
+    handleAddDialog()
+    {
+        let existingChoices = this.state.choices;
+        existingChoices.push(this.state.choiceText);
+        this.setState({choices:existingChoices});
+        this.handleCancelDialog();
+    }
+
+
     goToExamWidget() {
         this.props.navigation.navigate("ExamWidget",
             {
@@ -104,6 +146,8 @@ export default class MultipleChoiceQuestionEditor extends Component {
                 response.title = this.state.title;
                 response.subtitle = this.state.subtitle;
                 response.points = this.state.points;
+                response.options = this.state.choices;
+                response.correctOption = this.state.correctChoice;
                 this.widgetService.updateMultipleChoiceQuestion(this.state.questionId,response);
             })
             .then(()=> this.goToExamWidget());
@@ -125,6 +169,7 @@ export default class MultipleChoiceQuestionEditor extends Component {
         return(
             <ScrollView style={{padding: 10}}>
                 <View>
+
                     <FormLabel>Title</FormLabel>
                     <FormInput value={this.state.title}
                                onChangeText={ text => this.updateForm({title: text})}/>
@@ -143,6 +188,23 @@ export default class MultipleChoiceQuestionEditor extends Component {
                                    text => this.updatePoints(text)}/>
                     {!this.state.isValidPoints &&
                     <FormValidationMessage>Points are required</FormValidationMessage>}
+
+                    <FormLabel>Choices :</FormLabel>
+                    {this.state.choices.map((choice,index) => {
+                        return <ListItem
+                            title={choice}
+                            key={index}
+                            leftIcon={<CheckBox label='' checked={this.state.correctChoice === choice}
+                                onChange={() => this.setCorrectChoice(choice)}/>}
+                            rightIcon={(<Icon name="times" type="font-awesome"
+                            size={20} onPress={() => this.deleteChoice(choice)}
+                            color="red"/>)}/>
+                    })}
+                    <Button backgroundColor='#28A745'
+                            rounded
+                            title="Add Choice"
+                            buttonStyle={{marginBottom: 5, marginTop: 5}}
+                            onPress={() => this.showAddChoiceDialog()}/>
 
                     <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
                         <View>
@@ -175,6 +237,16 @@ export default class MultipleChoiceQuestionEditor extends Component {
                     <View style={styles.containerC}>
                         <Text h4 style={styles.textStyle}>Options</Text>
                     </View>
+                    <View>
+                        {this.state.choices.map((choice,index) => {
+                            return <ListItem
+                                leftIcon={<CheckBox label='' disabled={true}/>}
+                                title={choice}
+                                hideChevron={true}
+                                disabled={true}
+                                key={index}/>
+                        })}
+                    </View>
                     <View style={styles.buttonContainer} >
                         <Button backgroundColor="red" color="white" title="Cancel"/>
                         <Button backgroundColor="green" color="white" title="Submit"/>
@@ -186,6 +258,19 @@ export default class MultipleChoiceQuestionEditor extends Component {
                                title="Delete"
                                buttonStyle={{marginBottom: 2, marginTop: 2}}
                                onPress={()=>this.deleteQuestion()}/>
+                </View>
+                <View>
+                    <Dialog.Container visible={this.state.isDialogVisible}>
+                        <Dialog.Title>Add Choice</Dialog.Title>
+                        <Dialog.Description>
+                            Add title of the choice here.
+                        </Dialog.Description>
+                        <Dialog.Input onChangeText={(name) => this.setState({choiceText:name }) }>
+                            {this.state.choiceText}
+                        </Dialog.Input>
+                        <Dialog.Button label="Add" onPress={()=>this.handleAddDialog()} />
+                        <Dialog.Button label="Cancel" onPress={()=>this.handleCancelDialog()}/>
+                    </Dialog.Container>
                 </View>
 
             </ScrollView>
@@ -218,12 +303,12 @@ let styles = StyleSheet.create({
         alignSelf: 'flex-start'
     },
     viewStyleOne: {
+        flex: 1,
         margin: 5,
         justifyContent: 'center',
         alignItems:'center'
     },
     textStyle:{
-        textAlign:'center',
         flexWrap: 'wrap'
     },
     textAreaContainer: {

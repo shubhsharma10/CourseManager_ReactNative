@@ -92,6 +92,14 @@ export default class ExamWidget extends Component {
         else if(selectedQuestionType === "FB")
         {
             // Fill in the blanks question
+            // Multiple choice question
+            let blanksQuestion = {type:"FB",title:"New Question"};
+            // True false question
+            this.widgetService
+                .createBlanksQuestion(this.state.widgetId,blanksQuestion)
+                .then(() => {
+                    this.findAllQuestionsForExam(this.state.widgetId);
+                })
         }
     }
 
@@ -166,7 +174,12 @@ export default class ExamWidget extends Component {
         }
         else if(questionType === "FB")
         {
-
+            this.props.navigation.navigate("FillInTheBlanksQuestionEditor",
+                {
+                    questionId: questionId,
+                    widgetId: examId,
+                    topicId: topicId
+                });
         }
         else if(questionType === "ES")
         {

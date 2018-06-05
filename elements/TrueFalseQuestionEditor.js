@@ -167,7 +167,7 @@ export default class TrueFalseQuestionEditor extends Component {
                                        title="Cancel"
                                        onPress={()=>this.cancelChanges()}/></View>
                     </View>
-                    <Text h3 style={styles.viewStyleOne}>Preview</Text>
+                    <Text h3 style={styles.textContainerStyle}>Preview</Text>
                 </View>
                 <View style={styles.topContainer}>
                     <View style={styles.containerA}>

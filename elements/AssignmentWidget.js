@@ -154,7 +154,7 @@ class AssignmentWidget extends Component {
                                    onPress={()=>this.cancelAssignment()}/></View>
                     </View>
 
-                    <Text h3 style={styles.viewStyleOne}>Preview</Text>
+                    <Text h3 style={styles.textContainerStyle}>Preview</Text>
                 </View>
                 <View style={styles.topContainer}>
                     <View style={styles.containerA}>

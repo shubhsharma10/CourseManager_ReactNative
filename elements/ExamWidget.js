@@ -205,9 +205,7 @@ export default class ExamWidget extends Component {
             <ScrollView style={{padding: 10}}>
                 <View>
                     <TextInput
-                        editable={true}
-                        value={this.state.title}
-                        onChangeText={(text) => this.updateForm({title: text})}/>
+                        value={this.state.title}/>
                     {this.state.questions.map((question,index) => {
                        return <ListItem
                            title={question.title}

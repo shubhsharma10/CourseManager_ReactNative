@@ -49,10 +49,10 @@ export default class WidgetList extends Component {
         }
     }
 
-    createWidget(selectedIndex) {
+    createWidget(selectedIndex,widgetTitle) {
         if(selectedIndex === 1) {
             // Create Assignment widget
-            let assignmentWidget = {title: 'New Assignment',widgetType: 'Assignment'};
+            let assignmentWidget = {title: widgetTitle,widgetType: 'Assignment'};
             this.widgetService
                 .createAssignmentWidget(this.state.topicId,assignmentWidget)
                 .then(() => {
@@ -62,7 +62,7 @@ export default class WidgetList extends Component {
         }
         else {
             // Create Exam widget
-            let examWidget = {title: 'New Exam',widgetType: 'Exam'};
+            let examWidget = {title: widgetTitle,widgetType: 'Exam'};
             this.widgetService
                 .createExamWidget(this.state.topicId,examWidget)
                 .then(() => {

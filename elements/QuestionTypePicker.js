@@ -29,8 +29,8 @@ class QuestionTypePicker extends React.Component {
 
     handleAddDialog()
     {
-        this.handleCancelDialog();
         this.props.createQuestion(this.state.questionType,this.state.questionTitle)
+        this.handleCancelDialog();
     }
     render() {
         return (

@@ -232,8 +232,7 @@ let styles = StyleSheet.create({
     containerB: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch'
+        justifyContent: 'flex-start'
     },
     containerC: {
         margin: 5,
@@ -241,12 +240,12 @@ let styles = StyleSheet.create({
         alignSelf: 'flex-start'
     },
     viewStyleOne: {
+        flex: 1,
         margin: 5,
         justifyContent: 'center',
         alignItems:'center'
     },
     textStyle:{
-        textAlign:'center',
         flexWrap: 'wrap'
     },
     fileBrowseContainer: {

@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import * as constants from '../constants/index'
 import * as constantElements from '../elements/index'
 import {ScrollView,View} from 'react-native'
 import {ListItem,Icon} from 'react-native-elements'

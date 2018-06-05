@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as constants from '../constants/index'
 import * as constantElements from '../elements/index'
-import {View} from 'react-native'
+import {View,ScrollView} from 'react-native'
 import {ListItem,Icon} from 'react-native-elements'
 
 export default class ModuleList extends Component {
@@ -46,7 +46,7 @@ export default class ModuleList extends Component {
 
     render(){
         return(
-            <View>
+            <ScrollView>
                 {this.state.topics.map((topic,index) =>
                     (<ListItem
                         title={topic.title}
@@ -58,7 +58,7 @@ export default class ModuleList extends Component {
                             })}
                         />
                     ))}
-            </View>
+            </ScrollView>
         )
     }
 }

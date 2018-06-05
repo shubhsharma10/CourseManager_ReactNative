@@ -192,7 +192,7 @@ class AssignmentWidget extends Component {
                     <Button	backgroundColor="red"
                                color="white"
                                title="Delete"
-                               buttonStyle={{marginBottom: 2, marginTop: 2}}
+                               buttonStyle={{marginBottom: 20, marginTop: 2}}
                                onPress={()=>this.deleteAssignmentWidget()}/>
                 </View>
             </ScrollView>

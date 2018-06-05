@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import * as constants from '../constants/index'
 import * as constantElements from '../elements/index'
-import {View} from 'react-native'
+import {View,ScrollView} from 'react-native'
 import {ListItem,Icon} from 'react-native-elements'
 
 export default class CourseList extends Component {
@@ -36,7 +36,7 @@ export default class CourseList extends Component {
 
     render(){
         return(
-            <View>
+            <ScrollView>
                 {this.state.courses.map((course,index) =>
                     (<ListItem
                     title={course.title}
@@ -44,7 +44,7 @@ export default class CourseList extends Component {
                     onPress={() => this.props.
                     navigation.navigate("ModuleList",
                         {courseId: course.id})}/>))}
-            </View>
+            </ScrollView>
         )
     }
 }

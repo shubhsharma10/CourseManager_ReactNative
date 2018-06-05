@@ -34,6 +34,7 @@ export default class ExamWidget extends Component {
         this.deleteExamWidget = this.deleteExamWidget.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
         this.goToQuestionEditor = this.goToQuestionEditor.bind(this);
+        this.getIconName = this.getIconName.bind(this);
         this.widgetService = WidgetService.getInstance();
     }
 
@@ -181,6 +182,17 @@ export default class ExamWidget extends Component {
             });
     }
 
+    getIconName(questionType) {
+        if(questionType === "TF")
+            return "shuffle";
+        else if(questionType === "MC")
+            return  "check";
+        else if(questionType === "FB")
+            return "list";
+        else
+            return "square";
+    }
+
     render() {
         return(
             <ScrollView style={{padding: 10}}>
@@ -190,6 +202,7 @@ export default class ExamWidget extends Component {
                        return <ListItem
                            title={question.title}
                            key={index}
+                           leftIcon={(<Icon name={this.getIconName(question.type)} type="feather"/>)}
                            onPress={()=>
                                this.goToQuestionEditor(
                                     question.id,question.type,

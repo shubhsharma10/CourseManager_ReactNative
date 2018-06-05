@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet,TextInput} from 'react-native'
-import {Text, Button, CheckBox,FormLabel, FormInput, FormValidationMessage,Icon}
+import {Text, Button,FormLabel, FormInput, FormValidationMessage,Icon}
     from 'react-native-elements'
 import WidgetService from '../services/WidgetService'
 import * as constantElements from '../elements/index'

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {View,ScrollView,StyleSheet} from 'react-native'
-import {Text, Button, CheckBox,FormLabel, FormInput, FormValidationMessage,Icon}
+import {View,ScrollView,StyleSheet, TextInput} from 'react-native'
+import {Text,Button,FormLabel, FormInput, FormValidationMessage,Icon}
     from 'react-native-elements'
 import WidgetService from '../services/WidgetService'
 import * as constantElements from '../elements/index'
@@ -29,17 +29,19 @@ export default class FillInTheBlanksQuestionEditor extends Component {
             subtitle: '',
             points: 0,
             pointInStr: '',
-            parameters: [],
-            values: [],
+            inputArea: '',
             isValidPoints: false,
             questionId: 0,
             widgetId: 0,
             topicId: 0,
+            parsedLines: []
         };
 
         this.deleteQuestion = this.deleteQuestion.bind(this);
         this.saveQuestion = this.saveQuestion.bind(this);
         this.cancelChanges = this.cancelChanges.bind(this);
+        this.saveInputAreaChanges = this.saveInputAreaChanges.bind(this);
+        this.renderPreview = this.renderPreview.bind(this);
 
         this.widgetService = WidgetService.getInstance();
     }
@@ -65,6 +67,9 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                     let points = question.points === null ? 0 : question.points;
                     this.setState({points: points});
                     this.setState({pointsInString: points.toString()});
+                    this.setState({inputArea:question.inputArea},function () {
+                        this.saveInputAreaChanges();
+                    });
                     if(points > 0)
                         this.setState({isValidPoints: true});
                 }
@@ -73,6 +78,85 @@ export default class FillInTheBlanksQuestionEditor extends Component {
 
     updateForm(newState) {
         this.setState(newState)
+    }
+
+    saveInputAreaChanges()
+    {
+        if(this.state.inputArea === '')
+        {
+            return;
+        }
+       let inputLines = this.state.inputArea.split('\n');
+       let parsedLinesTest = [];
+       for(let k = 0; k < inputLines.length; k++){
+           let inputLine = inputLines[k];
+           let line = [];
+           let regex = /\[([^\]]+)\]/g;
+           let matches = inputLine.match(regex);
+           let newInput = inputLine.replace(regex,'X');
+           let i = 0;
+           let lastSeen = 0;
+           for (let j = 0; j < newInput.length; j++) {
+               if(newInput.charAt(j) === 'X'){
+                   if(j>0) {
+                    line.push([0,newInput.substring(lastSeen,j)]);
+                   }
+                   line.push([1,matches[i]]);
+                   lastSeen += j+1;
+                   i += 1;
+               }
+               else if(j === newInput.length-1)
+               {
+                   line.push([0,newInput.substring(lastSeen,newInput.length)]);
+               }
+           }
+           parsedLinesTest.push(line);
+       }
+       this.setState({parsedLines: parsedLinesTest});
+    }
+
+    getInputLabel(key){
+        return React.createElement(TextInput,{style: {margin: 2,borderColor: 'black',borderWidth: 1},key: key},'');
+    }
+
+    getLabel(key,text) {
+        return React.createElement(Text,{style: {margin: 2},key: key},text);
+    }
+
+    renderPreview() {
+        let parsedLines = this.state.parsedLines;
+        let count = 1;
+        if(parsedLines.length === 0)
+        {
+            return(<View style={styles.textAreaContainer}></View>)
+        }
+        else {
+            let divs = [];
+            for (let i = 0; i < parsedLines.length; i++) {
+                let parsedLine = parsedLines[i];
+                let div = '';
+                let components = [];
+                for (j = 0; j < parsedLine.length; j++) {
+                    let component = '';
+                    if (parsedLine[j][0] === 0) {
+                        // label
+                        component = this.getLabel(count,parsedLine[j][1]);
+                        count += 1;
+                    }
+                    else {
+                        // input
+                        component = this.getInputLabel(count);
+                        count += 1;
+                    }
+                    components.push(component);
+                }
+                div = React.createElement(View, {style: {flexDirection: 'row'},key:count}, components);
+                count += 1;
+                divs.push(div)
+            }
+            return React.createElement(View, {style: {flex: 1, justifyContent: 'flex-start'},key:count}, divs);
+        }
+
     }
 
     updatePoints(newValue) {
@@ -104,6 +188,7 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                 response.title = this.state.title;
                 response.subtitle = this.state.subtitle;
                 response.points = this.state.points;
+                response.inputArea = this.state.inputArea;
                 this.widgetService.updateBlanksQuestion(this.state.questionId,response);
             })
             .then(()=> this.goToExamWidget());
@@ -143,6 +228,21 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                                    text => this.updatePoints(text)}/>
                     {!this.state.isValidPoints &&
                     <FormValidationMessage>Points are required</FormValidationMessage>}
+                    <View style={styles.textAreaContainer} >
+                        <TextInput
+                            style={styles.textArea}
+                            underlineColorAndroid="transparent"
+                            placeholder={"Enter text here"}
+                            placeholderTextColor={"grey"}
+                            numberOfLines={6}
+                            multiline={true}
+                            onChangeText={(text) => this.setState({inputArea: text})}
+                            value={this.state.inputArea}
+                        />
+                    </View>
+                    <View style={{flexDirection: 'row',justifyContent: 'flex-end',flex: 1}}>
+                        <Button title="Save changes" onPress={()=>this.saveInputAreaChanges()}/>
+                    </View>
 
                     <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
                         <View>
@@ -173,8 +273,9 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                         </View>
                     </View>
                     <View style={styles.containerC}>
-                        <Text h4 style={styles.textStyle}>Options</Text>
+                        <Text h4 style={styles.textStyle}>Fill in the blanks</Text>
                     </View>
+                    {this.renderPreview()}
                     <View style={styles.buttonContainer} >
                         <Button backgroundColor="red" color="white" title="Cancel"/>
                         <Button backgroundColor="green" color="white" title="Submit"/>
@@ -230,7 +331,7 @@ let styles = StyleSheet.create({
         borderColor: 'grey',
         borderWidth: 1,
         margin: 5,
-        flex: 1,
+        flex: 1
     },
     buttonContainer: {
         padding: 5,

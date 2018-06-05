@@ -1,42 +1,35 @@
-export const WIDGET_API_URL = 'http://10.0.0.185:8080/api/topic/TID/widget';
+export const WIDGET_API_URL = 'http://10.110.165.84:8080/api/topic/TID/widget';
 export const LESSON_API_URL =
-    'http://10.0.0.185:8080/api/course/CID/module/MID/lesson';
-export const GEN_LESSON_API_URL =
-    'http://10.0.0.185:8080/api/lesson';
+    'http://10.110.165.84:8080/api/course/CID/module/MID/lesson';
 export const COURSE_API_URL =
-    'http://10.0.0.185:8080/api/course';
+    'http://10.110.165.84:8080/api/course';
 export const MODULE_API_URL =
-    'http://10.0.0.185:8080/api/course/CID/module';
-
-export const DIRECT_MODULE_API_URL =
-    'http://10.0.0.185:8080/api/module';
+    'http://10.110.165.84:8080/api/course/CID/module';
 export const TOPIC_API_URL =
-    'http://10.0.0.185:8080/api/course/CID/module/MID/lesson/LID/topic';
-export const GEN_TOPIC_API_URL =
-    'http://10.0.0.185:8080/api/topic';
+    'http://10.110.165.84:8080/api/course/CID/module/MID/lesson/LID/topic';
 export const ASSIGNMENT_API_URL =
-    'http://10.0.0.185:8080/api/topic/TID/assignment';
+    'http://10.110.165.84:8080/api/topic/TID/assignment';
 export const GEN_ASSIGNMENT_API_URL =
-    'http://10.0.0.185:8080/api/assignment/AID';
+    'http://10.110.165.84:8080/api/assignment/AID';
 export const EXAM_API_URL =
-    'http://10.0.0.185:8080/api/topic/TID/exam';
+    'http://10.110.165.84:8080/api/topic/TID/exam';
 export const GEN_EXAM_API_URL =
-    'http://10.0.0.185:8080/api/exam/EID';
+    'http://10.110.165.84:8080/api/exam/EID';
 export const QUESTION_API_URL =
-    'http://10.0.0.185:8080/api/exam/EID/question';
+    'http://10.110.165.84:8080/api/exam/EID/question';
 export const TRUEFALSE_API_URL =
-    'http://10.0.0.185:8080/api/exam/EID/truefalse';
+    'http://10.110.165.84:8080/api/exam/EID/truefalse';
 export const GEN_TRUEFALSE_API_URL =
-    'http://10.0.0.185:8080/api/truefalse/QID';
+    'http://10.110.165.84:8080/api/truefalse/QID';
 export const ESSAY_API_URL =
-    'http://10.0.0.185:8080/api/exam/EID/essay';
+    'http://10.110.165.84:8080/api/exam/EID/essay';
 export const GEN_ESSAY_API_URL =
-    'http://10.0.0.185:8080/api/essay/QID';
+    'http://10.110.165.84:8080/api/essay/QID';
 export const MULTIPLE_CHOICE_API_URL =
-    'http://10.0.0.185:8080/api/exam/EID/choice';
+    'http://10.110.165.84:8080/api/exam/EID/choice';
 export const GEN_MULTIPLE_CHOICE_API_URL =
-    'http://10.0.0.185:8080/api/choice/QID';
+    'http://10.110.165.84:8080/api/choice/QID';
 export const BLANKS_API_URL =
-    'http://10.0.0.185:8080/api/exam/EID/blanks';
+    'http://10.110.165.84:8080/api/exam/EID/blanks';
 export const GEN_BLANKS_API_URL =
-    'http://10.0.0.185:8080/api/blanks/QID';
+    'http://10.110.165.84:8080/api/blanks/QID';

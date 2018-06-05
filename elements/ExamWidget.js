@@ -56,10 +56,10 @@ export default class ExamWidget extends Component {
     }
 
 
-    createQuestion(selectedQuestionType) {
+    createQuestion(selectedQuestionType,questionTitle) {
         if(selectedQuestionType === "TF")
         {
-            let trueFalseQuestion = {type:"TF",title:"New Question"};
+            let trueFalseQuestion = {type:"TF",title:questionTitle};
             // True false question
             this.widgetService
                 .createTrueFalseQuestion(this.state.widgetId,trueFalseQuestion)

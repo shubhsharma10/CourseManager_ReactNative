@@ -5,7 +5,7 @@ import {Text, Button, ListItem,FormLabel, FormInput, FormValidationMessage,Icon}
 import WidgetService from '../services/WidgetService'
 import * as constantElements from '../elements/index'
 import Dialog from 'react-native-dialog'
-import CheckBox from 'react-native-checkbox';
+import CheckBox from 'react-native-checkbox'
 
 export default class MultipleChoiceQuestionEditor extends Component {
     static navigationOptions = ({navigation}) => {

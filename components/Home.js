@@ -25,7 +25,7 @@ export default class Home extends Component {
                 </View>
                 <View style={styles.container}>
                     <View style={styles.viewStyleOne}><Text>XXXX</Text></View>
-                    <View style={styles.viewStyleOne}><Text>PPPP</Text></View>
+                    <View style={styles.viewStyleOne}><Text>UUUU</Text></View>
                 </View>
             </ScrollView>
         );

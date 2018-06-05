@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet, TextInput} from 'react-native'
 import {Text,Button,FormLabel, FormInput, FormValidationMessage,Icon}
     from 'react-native-elements'
-import WidgetService from '../services/WidgetService'
+import FillInTheBlanksQuestionService from '../services/FillInTheBlanksQuestionService'
 import * as constantElements from '../elements/index'
 
 export default class FillInTheBlanksQuestionEditor extends Component {
@@ -43,7 +43,7 @@ export default class FillInTheBlanksQuestionEditor extends Component {
         this.saveInputAreaChanges = this.saveInputAreaChanges.bind(this);
         this.renderPreview = this.renderPreview.bind(this);
 
-        this.widgetService = WidgetService.getInstance();
+        this.questionService = FillInTheBlanksQuestionService.getInstance();
     }
 
     componentDidMount() {
@@ -57,7 +57,7 @@ export default class FillInTheBlanksQuestionEditor extends Component {
     }
 
     findBlanksQuestionById(questionId) {
-        this.widgetService
+        this.questionService
             .findBlanksQuestionById(questionId)
             .then((question) => {
                 if(question !== null)
@@ -182,14 +182,14 @@ export default class FillInTheBlanksQuestionEditor extends Component {
     };
 
     saveQuestion() {
-        this.widgetService
+        this.questionService
             .findBlanksQuestionById(this.state.questionId)
             .then((response) => {
                 response.title = this.state.title;
                 response.subtitle = this.state.subtitle;
                 response.points = this.state.points;
                 response.inputArea = this.state.inputArea;
-                this.widgetService.updateBlanksQuestion(this.state.questionId,response);
+                this.questionService.updateBlanksQuestion(this.state.questionId,response);
             })
             .then(()=> this.goToExamWidget());
     }
@@ -199,7 +199,7 @@ export default class FillInTheBlanksQuestionEditor extends Component {
     }
 
     deleteQuestion() {
-        this.widgetService
+        this.questionService
             .deleteBlanksQuestion(this.state.questionId)
             .then(() => {
                 this.goToExamWidget();

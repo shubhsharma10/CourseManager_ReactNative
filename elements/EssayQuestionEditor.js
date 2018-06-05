@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet,TextInput} from 'react-native'
 import {Text, Button,FormLabel, FormInput, FormValidationMessage,Icon}
     from 'react-native-elements'
-import WidgetService from '../services/WidgetService'
+import EssayQuestionService from '../services/EssayQuestionService'
 import * as constantElements from '../elements/index'
 
 export default class EssayQuestionEditor extends Component {
@@ -39,7 +39,7 @@ export default class EssayQuestionEditor extends Component {
         this.saveQuestion = this.saveQuestion.bind(this);
         this.cancelChanges = this.cancelChanges.bind(this);
 
-        this.widgetService = WidgetService.getInstance();
+        this.questionService = EssayQuestionService.getInstance();
     }
 
     componentDidMount() {
@@ -53,7 +53,7 @@ export default class EssayQuestionEditor extends Component {
     }
 
     findEssayQuestionById(questionId) {
-        this.widgetService
+        this.questionService
             .findEssayQuestionById(questionId)
             .then((question) => {
                 if(question !== null)
@@ -96,13 +96,13 @@ export default class EssayQuestionEditor extends Component {
     };
 
     saveQuestion() {
-        this.widgetService
+        this.questionService
             .findEssayQuestionById(this.state.questionId)
             .then((response) => {
                 response.title = this.state.title;
                 response.subtitle = this.state.subtitle;
                 response.points = this.state.points;
-                this.widgetService.updateEssayQuestion(this.state.questionId,response);
+                this.questionService.updateEssayQuestion(this.state.questionId,response);
             })
             .then(()=> this.goToExamWidget());
     }
@@ -112,7 +112,7 @@ export default class EssayQuestionEditor extends Component {
     }
 
     deleteQuestion() {
-        this.widgetService
+        this.questionService
             .deleteEssayQuestion(this.state.questionId)
             .then(() => {
                 this.goToExamWidget();

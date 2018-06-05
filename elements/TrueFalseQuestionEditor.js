@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet,TextInput} from 'react-native'
 import {Text, Button, CheckBox,FormLabel, FormInput, FormValidationMessage,Icon}
                                             from 'react-native-elements'
-import WidgetService from '../services/WidgetService'
+import TrueFalseQuestionService from '../services/TrueFalseQuestionService'
 import * as constantElements from '../elements/index'
 
 export default class TrueFalseQuestionEditor extends Component {
@@ -40,7 +40,7 @@ export default class TrueFalseQuestionEditor extends Component {
         this.saveQuestion = this.saveQuestion.bind(this);
         this.cancelChanges = this.cancelChanges.bind(this);
 
-        this.widgetService = WidgetService.getInstance();
+        this.questionService = TrueFalseQuestionService.getInstance();
     }
 
     componentDidMount() {
@@ -54,7 +54,7 @@ export default class TrueFalseQuestionEditor extends Component {
     }
 
     findTrueFalseQuestionById(questionId) {
-        this.widgetService
+        this.questionService
             .findTrueFalseQuestionById(questionId)
             .then((question) => {
                 if(question !== null)
@@ -105,14 +105,14 @@ export default class TrueFalseQuestionEditor extends Component {
     };
 
     saveQuestion() {
-        this.widgetService
+        this.questionService
             .findTrueFalseQuestionById(this.state.questionId)
             .then((response) => {
                 response.title = this.state.title;
                 response.subtitle = this.state.subtitle;
                 response.points = this.state.points;
                 response.true = this.state.isTrue;
-                this.widgetService.updateTrueFalseQuestion(this.state.questionId,response);
+                this.questionService.updateTrueFalseQuestion(this.state.questionId,response);
             })
             .then(()=> this.goToExamWidget());
     }
@@ -122,7 +122,7 @@ export default class TrueFalseQuestionEditor extends Component {
     }
 
     deleteQuestion() {
-        this.widgetService
+        this.questionService
             .deleteTrueFalseQuestion(this.state.questionId)
             .then(() => {
                 this.goToExamWidget();

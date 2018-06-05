@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {View,ScrollView,StyleSheet} from 'react-native'
 import {Text, Button, ListItem,FormLabel, FormInput, FormValidationMessage,Icon}
     from 'react-native-elements'
-import WidgetService from '../services/WidgetService'
+import MultipleChoiceQuestionService from '../services/MultipleChoiceQuestionService'
 import * as constantElements from '../elements/index'
 import Dialog from 'react-native-dialog'
 import CheckBox from 'react-native-checkbox'
@@ -50,7 +50,7 @@ export default class MultipleChoiceQuestionEditor extends Component {
         this.handleAddDialog = this.handleAddDialog.bind(this);
         this.setCorrectChoice = this.setCorrectChoice.bind(this);
 
-        this.widgetService = WidgetService.getInstance();
+        this.questionService = MultipleChoiceQuestionService.getInstance();
     }
 
     componentDidMount() {
@@ -64,7 +64,7 @@ export default class MultipleChoiceQuestionEditor extends Component {
     }
 
     findMultipleChoiceQuestionById(questionId) {
-        this.widgetService
+        this.questionService
             .findMultipleChoiceQuestionById(questionId)
             .then((question) => {
                 if(question !== null)
@@ -140,7 +140,7 @@ export default class MultipleChoiceQuestionEditor extends Component {
     };
 
     saveQuestion() {
-        this.widgetService
+        this.questionService
             .findMultipleChoiceQuestionById(this.state.questionId)
             .then((response) => {
                 response.title = this.state.title;
@@ -148,7 +148,7 @@ export default class MultipleChoiceQuestionEditor extends Component {
                 response.points = this.state.points;
                 response.options = this.state.choices;
                 response.correctOption = this.state.correctChoice;
-                this.widgetService.updateMultipleChoiceQuestion(this.state.questionId,response);
+                this.questionService.updateMultipleChoiceQuestion(this.state.questionId,response);
             })
             .then(()=> this.goToExamWidget());
     }
@@ -158,7 +158,7 @@ export default class MultipleChoiceQuestionEditor extends Component {
     }
 
     deleteQuestion() {
-        this.widgetService
+        this.questionService
             .deleteMultipleChoiceQuestion(this.state.questionId)
             .then(() => {
                 this.goToExamWidget();

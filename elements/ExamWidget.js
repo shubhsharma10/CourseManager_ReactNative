@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View,ScrollView,StyleSheet,TextInput} from 'react-native'
+import {View,ScrollView,StyleSheet,Text} from 'react-native'
 import {ListItem,Button,Icon} from 'react-native-elements'
 import * as constantElements from '../elements/index'
 import WidgetService from '../services/WidgetService'
@@ -70,7 +70,7 @@ export default class ExamWidget extends Component {
         else if(selectedQuestionType === "ES")
         {
             // Essay type question
-            let essayQuestion = {type:"ES",title:"New Question"};
+            let essayQuestion = {type:"ES",title:questionTitle};
             // True false question
             this.widgetService
                 .createEssayQuestion(this.state.widgetId,essayQuestion)
@@ -81,7 +81,7 @@ export default class ExamWidget extends Component {
         else if(selectedQuestionType === "MC")
         {
             // Multiple choice question
-            let multipleChoiceQuestion = {type:"MC",title:"New Question"};
+            let multipleChoiceQuestion = {type:"MC",title:questionTitle};
             // True false question
             this.widgetService
                 .createMultipleChoiceQuestion(this.state.widgetId,multipleChoiceQuestion)
@@ -93,7 +93,7 @@ export default class ExamWidget extends Component {
         {
             // Fill in the blanks question
             // Multiple choice question
-            let blanksQuestion = {type:"FB",title:"New Question"};
+            let blanksQuestion = {type:"FB",title:questionTitle};
             // True false question
             this.widgetService
                 .createBlanksQuestion(this.state.widgetId,blanksQuestion)
@@ -126,31 +126,12 @@ export default class ExamWidget extends Component {
             });
     }
 
-    updateForm(newState) {
-        this.setState(newState,function() {
-            this.saveExam();
-        });
-    }
-
     goToWidgetList() {
         this.props.navigation.navigate("WidgetList",
             {
                 topicId: this.state.topicId
             });
     };
-
-    saveExam() {
-        this.widgetService
-            .findExamWidgetById(this.state.widgetId)
-            .then((response) => {
-                response.title = this.state.title;
-                this.widgetService.updateExamWidget(this.state.widgetId,response);
-            })
-    }
-
-    cancelExam() {
-        this.goToWidgetList();
-    }
 
     goToQuestionEditor(questionId,questionType,examId,topicId)
     {
@@ -204,8 +185,7 @@ export default class ExamWidget extends Component {
         return(
             <ScrollView style={{padding: 10}}>
                 <View>
-                    <TextInput
-                        value={this.state.title}/>
+                    <Text h2 style={{fontWeight: "bold"}}>{this.state.title}</Text>
                     {this.state.questions.map((question,index) => {
                        return <ListItem
                            title={question.title}

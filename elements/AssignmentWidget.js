@@ -183,6 +183,22 @@ class AssignmentWidget extends Component {
                             multiline={true}
                         />
                     </View>
+                    <View style={styles.containerC}>
+                        <Text h4 style={styles.textStyle}>Upload a file</Text>
+                    </View>
+                    <View style={styles.fileBrowseContainer} >
+                        <Button title="Choose File" backgroundColor='#28A745'/>
+                        <TextInput placeholder="No file chosen"/>
+                    </View>
+                    <View style={styles.containerC}>
+                        <Text h4 style={styles.textStyle}>Submit a link</Text>
+                    </View>
+                    <View style={styles.textAreaContainer} >
+                        <TextInput
+                            underlineColorAndroid="transparent"
+                            placeholderTextColor={"grey"}
+                        />
+                    </View>
                     <View style={styles.buttonContainer} >
                        <Button backgroundColor="red" color="white" title="Cancel"/>
                         <Button backgroundColor="green" color="white" title="Submit"/>
@@ -232,6 +248,13 @@ let styles = StyleSheet.create({
     textStyle:{
         textAlign:'center',
         flexWrap: 'wrap'
+    },
+    fileBrowseContainer: {
+        borderColor: 'grey',
+        borderWidth: 1,
+        flex: 1,
+        margin: 5,
+        flexDirection: 'row'
     },
     textAreaContainer: {
         borderColor: 'grey',

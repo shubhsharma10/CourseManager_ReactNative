@@ -27,7 +27,7 @@
     <img src="WidgetListPage.JPG" hspace="10" width="200" height="300"/>
 </p>
 
-<p align="center">
+<p align="left">
    <img src="AssignmentPage.JPG" hspace="10" width="200" height="300"/>
    <img src="ExamPage.JPG" hspace="10" width="200" height="300"/>
 </p>

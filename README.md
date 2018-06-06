@@ -1,4 +1,4 @@
-## React native front end for creating Exam Widgets
+## React native front end for creating Exam and Assignment Widgets
 
 ## Shubham Sharma
 
@@ -20,11 +20,11 @@
   <img src="CoursePage.JPG" hspace="10" width="200" height="300"/>
   <img src="ModulePage.JPG" hspace="10" width="200" height="300"/>
   <img src="LessonPage.JPG" hspace="10" width="200" height="300"/>
-  <img src="TopicPage.JPG" hspace="10" width="200" height="300"/>
-</p>
+ </p>
 
-<p align="center">
-  <img src="WidgetListPage.JPG" width="200" height="300"/>
+<p align="left">
+    <img src="TopicPage.JPG" hspace="10" width="200" height="300"/>
+    <img src="WidgetListPage.JPG" hspace="10" width="200" height="300"/>
 </p>
 
 <p align="center">

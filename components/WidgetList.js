@@ -102,7 +102,7 @@ export default class WidgetList extends Component {
 
     render() {
         return(
-            <ScrollView>
+            <ScrollView style={{padding: 10}}>
                 {this.state.widgets.map((widget,index) =>
                     (
                         <ListItem

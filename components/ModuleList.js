@@ -40,7 +40,7 @@ export default class ModuleList extends Component {
 
     render(){
         return(
-            <ScrollView>
+            <ScrollView style={{padding: 10}}>
                 {this.state.modules.map((module,index) =>
                     (<ListItem
                         title={module.title}

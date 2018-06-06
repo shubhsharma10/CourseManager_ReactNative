@@ -36,7 +36,7 @@ export default class CourseList extends Component {
 
     render(){
         return(
-            <ScrollView>
+            <ScrollView style={{padding: 10}}>
                 {this.state.courses.map((course,index) =>
                     (<ListItem
                     title={course.title}

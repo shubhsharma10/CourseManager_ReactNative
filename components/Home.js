@@ -11,23 +11,18 @@ export default class Home extends Component {
     };
     render() {
         return(
-            <ScrollView>
-                <View style={{
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center'}}>
-                    <Text h2>Course Manager</Text>
-                    <Button title="Course List"
-                            rounded
-                            backgroundColor='#28A745'
-                            onPress={() => this.props.
-                    navigation.navigate("CourseList")}/>
-                </View>
-                <View style={styles.container}>
-                    <View style={styles.viewStyleOne}><Text>LLLL</Text></View>
-                    <View style={styles.viewStyleOne}><Text>QQQQ</Text></View>
-                </View>
-            </ScrollView>
+            <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'}}>
+                <Text h2>Course Manager</Text>
+                <Button title="Course List"
+                        rounded
+                        backgroundColor='#28A745'
+                        onPress={() => this.props.
+                navigation.navigate("CourseList")}/>
+            </View>
         );
     }
 };

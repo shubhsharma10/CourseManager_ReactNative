@@ -218,19 +218,19 @@ export default class MultipleChoiceQuestionEditor extends Component {
                                        title="Cancel"
                                        onPress={()=>this.cancelChanges()}/></View>
                     </View>
-                    <Text h3 style={styles.viewStyleOne}>Preview</Text>
+                    <Text h3 style={styles.textContainerStyle}>Preview</Text>
                 </View>
                 <View style={styles.topContainer}>
                     <View style={styles.containerA}>
-                        <View style={styles.viewStyleOne}>
+                        <View style={styles.textContainerStyle}>
                             <Text h3 style={styles.textStyle}>{this.state.title}</Text>
                         </View>
-                        <View style={styles.viewStyleOne}>
+                        <View style={styles.textContainerStyle}>
                             <Text h3 style={styles.textStyle}>{this.state.points}pts</Text>
                         </View>
                     </View>
                     <View style={styles.containerB}>
-                        <View style={styles.viewStyleOne}>
+                        <View style={styles.textContainerStyle}>
                             <Text style={styles.textStyle}>{this.state.subtitle}</Text>
                         </View>
                     </View>
@@ -302,11 +302,10 @@ let styles = StyleSheet.create({
         flexDirection: 'column',
         alignSelf: 'flex-start'
     },
-    viewStyleOne: {
-        flex: 1,
+    textContainerStyle: {
         margin: 5,
-        justifyContent: 'center',
-        alignItems:'center'
+        flex: 1,
+        justifyContent: 'flex-start'
     },
     textStyle:{
         flexWrap: 'wrap'

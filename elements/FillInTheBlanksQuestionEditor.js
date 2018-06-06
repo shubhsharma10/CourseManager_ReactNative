@@ -160,7 +160,7 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                             justifyContent: 'flex-start',
                             margin: 15,
                             borderWidth: 1},
-                    key:count},
+                        },
                 divs);
         }
 
@@ -248,19 +248,21 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                         />
                     </View>
                     <View style={{flexDirection: 'row',justifyContent: 'flex-end',flex: 1}}>
-                        <Button title="Save changes" backgroundColor="indigo" buttonStyle={{ marginBottom: 5 }} onPress={()=>this.saveInputAreaChanges()}/>
+                        <Button title="Render in preview" backgroundColor="indigo" buttonStyle={{ marginBottom: 5 }} onPress={()=>this.saveInputAreaChanges()}/>
                     </View>
 
                     <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
                         <View>
-                            <Button	backgroundColor="green"
+                            <Button	backgroundColor="#28A745"
                                        color="white"
                                        title="Save"
+                                       buttonStyle={{height: 45}}
                                        onPress={()=>this.saveQuestion()}/></View>
                         <View>
                             <Button	backgroundColor="red"
                                        color="white"
                                        title="Cancel"
+                                       buttonStyle={{height: 45}}
                                        onPress={()=>this.cancelChanges()}/></View>
                     </View>
                     <Text h3 style={styles.textContainerStyle}>Preview</Text>

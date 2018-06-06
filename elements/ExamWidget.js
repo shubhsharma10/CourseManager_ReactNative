@@ -3,6 +3,10 @@ import {View,ScrollView,StyleSheet,Text} from 'react-native'
 import {ListItem,Button,Icon} from 'react-native-elements'
 import * as constantElements from '../elements/index'
 import WidgetService from '../services/WidgetService'
+import TrueFalseQuestionService from '../services/TrueFalseQuestionService'
+import MultipleChoiceQuestionService from '../services/MultipleChoiceQuestionService'
+import FillInTheBlanksQuestionService from '../services/FillInTheBlanksQuestionService'
+import EssayQuestionService from '../services/EssayQuestionService'
 import QuestionTypePicker from './QuestionTypePicker'
 
 export default class ExamWidget extends Component {
@@ -36,6 +40,10 @@ export default class ExamWidget extends Component {
         this.goToQuestionEditor = this.goToQuestionEditor.bind(this);
         this.getIconName = this.getIconName.bind(this);
         this.widgetService = WidgetService.getInstance();
+        this.tfQuestionService = TrueFalseQuestionService.getInstance();
+        this.multiQuestionService = MultipleChoiceQuestionService.getInstance();
+        this.fbQuestionService = FillInTheBlanksQuestionService.getInstance();
+        this.essayQuestionService = EssayQuestionService.getInstance();
     }
 
     componentDidMount() {
@@ -62,7 +70,7 @@ export default class ExamWidget extends Component {
         {
             let trueFalseQuestion = {type:"TF",title:questionTitle};
             // True false question
-            this.widgetService
+            this.tfQuestionService
                 .createTrueFalseQuestion(this.state.widgetId,trueFalseQuestion)
                 .then(() => {
                     this.findAllQuestionsForExam(this.state.widgetId);
@@ -73,7 +81,7 @@ export default class ExamWidget extends Component {
             // Essay type question
             let essayQuestion = {type:"ES",title:questionTitle};
             // True false question
-            this.widgetService
+            this.essayQuestionService
                 .createEssayQuestion(this.state.widgetId,essayQuestion)
                 .then(() => {
                     this.findAllQuestionsForExam(this.state.widgetId);
@@ -84,7 +92,7 @@ export default class ExamWidget extends Component {
             // Multiple choice question
             let multipleChoiceQuestion = {type:"MC",title:questionTitle};
             // True false question
-            this.widgetService
+            this.multiQuestionService
                 .createMultipleChoiceQuestion(this.state.widgetId,multipleChoiceQuestion)
                 .then(() => {
                     this.findAllQuestionsForExam(this.state.widgetId);
@@ -96,7 +104,7 @@ export default class ExamWidget extends Component {
             // Multiple choice question
             let blanksQuestion = {type:"FB",title:questionTitle};
             // True false question
-            this.widgetService
+            this.fbQuestionService
                 .createBlanksQuestion(this.state.widgetId,blanksQuestion)
                 .then(() => {
                     this.findAllQuestionsForExam(this.state.widgetId);

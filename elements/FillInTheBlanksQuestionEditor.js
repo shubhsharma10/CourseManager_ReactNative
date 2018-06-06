@@ -154,7 +154,14 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                 count += 1;
                 divs.push(div)
             }
-            return React.createElement(View, {style: {flex: 1, justifyContent: 'flex-start'},key:count}, divs);
+            return React.createElement(
+                View, {
+                    style: {flex: 1,
+                            justifyContent: 'flex-start',
+                            margin: 15,
+                            borderWidth: 1},
+                    key:count},
+                divs);
         }
 
     }

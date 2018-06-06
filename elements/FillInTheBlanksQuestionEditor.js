@@ -158,8 +158,10 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                 View, {
                     style: {flex: 1,
                             justifyContent: 'flex-start',
-                            margin: 15,
-                            borderWidth: 1},
+                            marginRight: 15,
+                            marginLeft: 15,
+                            marginTop:5,
+                            marginBottom: 15},
                         },
                 divs);
         }
@@ -239,7 +241,7 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                         <TextInput
                             style={styles.textArea}
                             underlineColorAndroid="transparent"
-                            placeholder={"Enter text here"}
+                            placeholder={"Enter text for fill in the blanks here for input field in [parameterName=value] format"}
                             placeholderTextColor={"grey"}
                             numberOfLines={6}
                             multiline={true}
@@ -282,7 +284,7 @@ export default class FillInTheBlanksQuestionEditor extends Component {
                         </View>
                     </View>
                     <View style={styles.containerC}>
-                        <Text h4 style={styles.textStyle}>Fill in the blanks</Text>
+                        <Text h5 style={{fontWeight: "bold",flexWrap: 'wrap'}}>Fill in the blanks:</Text>
                     </View>
                     {this.renderPreview()}
                     <View style={styles.buttonContainer} >

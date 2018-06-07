@@ -210,6 +210,7 @@ export default class ExamWidget extends Component {
                        return <ListItem
                            title={question.title}
                            key={index}
+                           titleStyle={{marginLeft: 5}}
                            leftIcon={(<Icon name={this.getIconName(question.type)} type="feather"/>)}
                            onPress={()=>
                                this.goToQuestionEditor(

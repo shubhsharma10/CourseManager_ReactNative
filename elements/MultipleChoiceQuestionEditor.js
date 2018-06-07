@@ -38,7 +38,8 @@ export default class MultipleChoiceQuestionEditor extends Component {
             widgetId: 0,
             topicId: 0,
             isDialogVisible: false,
-            choiceText: ''
+            choiceText: '',
+            selectedPreviewListItem: 0
         };
 
         this.deleteQuestion = this.deleteQuestion.bind(this);
@@ -192,8 +193,9 @@ export default class MultipleChoiceQuestionEditor extends Component {
                     <FormLabel>Choices :</FormLabel>
                     {this.state.choices.map((choice,index) => {
                         return <ListItem
-                            title={choice}
+                            title={index+1+': '+choice}
                             key={index}
+                            titleStyle={{marginLeft: 5}}
                             leftIcon={<CheckBox label='' checked={this.state.correctChoice === choice}
                                 onChange={() => this.setCorrectChoice(choice)}/>}
                             rightIcon={(<Icon name="times" type="font-awesome"
@@ -240,10 +242,11 @@ export default class MultipleChoiceQuestionEditor extends Component {
                     <View>
                         {this.state.choices.map((choice,index) => {
                             return <ListItem
-                                leftIcon={<CheckBox label='' disabled={true}/>}
-                                title={choice}
+                                titleStyle={{marginLeft: 5}}
+                                leftIcon={<CheckBox label='' checked={this.state.selectedPreviewListItem === index} onChange={()=> this.setState({selectedPreviewListItem: index})}/>}
+                                title={index+1+': '+choice}
+                                onPress={()=> this.setState({selectedPreviewListItem: index})}
                                 hideChevron={true}
-                                disabled={true}
                                 key={index}/>
                         })}
                     </View>

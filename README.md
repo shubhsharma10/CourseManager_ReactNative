@@ -10,6 +10,9 @@
 - Android
 - Genymotion
 
+### Known Issues
+- Since server is hosted on Heroku, if network is slow setState called on unmounted component warning comes.
+
 #### Screenshots
 
 <p align="center">
